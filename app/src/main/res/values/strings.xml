@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Entrega1</string>
+
+    <string-array name="equipos_futbol">
+        <item>"equipo favorito"</item>
+        <item>America</item>
+        <item>Cali</item>
+        <item>Millonario</item>
+        <item>Santa fe</item>
+        <item>Nacional</item>
+
+    </string-array>
+
+
+</resources>

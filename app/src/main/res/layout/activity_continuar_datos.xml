@@ -1,0 +1,108 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Selecciona tus gustos:" />
+
+        <CheckBox
+            android:id="@+id/cbMusica"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Música" />
+
+        <CheckBox
+            android:id="@+id/cbDeporte"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Deporte" />
+
+        <CheckBox
+            android:id="@+id/cbCine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cine" />
+
+        <CheckBox
+            android:id="@+id/cbVideojuegos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Videojuegos" />
+
+        <CheckBox
+            android:id="@+id/cbComida"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Comida" />
+
+        <CheckBox
+            android:id="@+id/cbViajes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Viajes" />
+
+        <CheckBox
+            android:id="@+id/cbLibros"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Libros" />
+
+        <Spinner
+            android:id="@+id/spnEquipoFavorito"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/equipos_futbol" />
+
+        <EditText
+            android:id="@+id/etPeliculaFavorita"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Película favorita" />
+
+        <EditText
+            android:id="@+id/etColorFavorito"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Color favorito" />
+
+        <EditText
+            android:id="@+id/etComidaFavorita"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Comida favorita" />
+
+        <EditText
+            android:id="@+id/etLibroFavorito"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Libro favorito" />
+
+        <EditText
+            android:id="@+id/etCancionFavorita"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Canción favorita" />
+
+        <EditText
+            android:id="@+id/etDescripcion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:hint="Descripción personal"
+            android:minHeight="100dp" />
+
+        <Button
+            android:id="@+id/btnGuardar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Guardar" />
+    </LinearLayout>
+</ScrollView>
