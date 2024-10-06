@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.io.BufferedWriter;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 public class ModificarDatosActivity extends AppCompatActivity {
@@ -33,10 +36,9 @@ public class ModificarDatosActivity extends AppCompatActivity {
         btnActualizar = findViewById(R.id.btnActualizar);
 
         // Botón para buscar al usuario por código o documento
-        btnBuscar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String codigoDocumento = etCodigoDocumento.getText().toString();
+        btnBuscar.setOnClickListener(v -> {
+            String codigoDocumento = etCodigoDocumento.getText().toString();
+            if (!codigoDocumento.isEmpty()) {
                 usuarioEncontrado = buscarUsuarioPorCodigoDocumento(codigoDocumento);
 
                 if (usuarioEncontrado != null) {
@@ -64,14 +66,15 @@ public class ModificarDatosActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(ModificarDatosActivity.this, "Usuario no encontrado", Toast.LENGTH_SHORT).show();
                 }
+            } else {
+                Toast.makeText(ModificarDatosActivity.this, "Por favor ingresa un código o documento", Toast.LENGTH_SHORT).show();
             }
         });
 
         // Botón para actualizar los datos
-        btnActualizar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (usuarioEncontrado != null) {
+        btnActualizar.setOnClickListener(v -> {
+            if (usuarioEncontrado != null) {
+                if (validarCampos()) {
                     // Actualizar los datos del usuario
                     usuarioEncontrado.setNombre(etNombre.getText().toString());
                     usuarioEncontrado.setApellido(etApellido.getText().toString());
@@ -88,14 +91,19 @@ public class ModificarDatosActivity extends AppCompatActivity {
                     RadioButton rbEstadoCivil = findViewById(selectedEstadoCivil);
                     usuarioEncontrado.setEstadoCivil(rbEstadoCivil.getText().toString());
 
+                    // Guardar los datos actualizados en un archivo
+                    guardarDatosActualizados(usuarioEncontrado);
+
                     Toast.makeText(ModificarDatosActivity.this, "Datos actualizados correctamente", Toast.LENGTH_SHORT).show();
 
                     // Regresar a la pantalla principal
                     Intent intent = new Intent(ModificarDatosActivity.this, MainActivity.class);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(ModificarDatosActivity.this, "No se pudo actualizar", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ModificarDatosActivity.this, "Por favor completa todos los campos", Toast.LENGTH_SHORT).show();
                 }
+            } else {
+                Toast.makeText(ModificarDatosActivity.this, "No se pudo actualizar", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -109,5 +117,32 @@ public class ModificarDatosActivity extends AppCompatActivity {
             }
         }
         return null;
+    }
+
+    // Validar que todos los campos estén llenos
+    private boolean validarCampos() {
+        return !etNombre.getText().toString().isEmpty() &&
+                !etApellido.getText().toString().isEmpty() &&
+                !etEdad.getText().toString().isEmpty() &&
+                !etEmail.getText().toString().isEmpty() &&
+                !etTelefono.getText().toString().isEmpty() &&
+                !etNacimiento.getText().toString().isEmpty();
+    }
+
+    // Método para guardar los datos actualizados en un archivo
+    private void guardarDatosActualizados(Usuario usuario) {
+        try {
+            String nombreArchivo = "datos_" + usuario.getCodigo() + ".txt";
+            BufferedWriter archivo = new BufferedWriter(new OutputStreamWriter(openFileOutput(nombreArchivo, MODE_PRIVATE)));
+
+            // Guardar los datos en el archivo separados por comas
+            archivo.write(usuario.getNombre() + "," + usuario.getApellido() + "," + usuario.getDocumento() + "," +
+                    usuario.getEdad() + "," + usuario.getEmail() + "," + usuario.getTelefono() + "," +
+                    usuario.getNacimiento() + "," + usuario.getGenero() + "," + usuario.getEstadoCivil());
+
+            archivo.close();
+        } catch (Exception e) {
+            Toast.makeText(this, "Error al guardar los datos: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 }
